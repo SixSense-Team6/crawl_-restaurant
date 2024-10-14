@@ -1,5 +1,4 @@
 
-sqlite3
 wordcloud
 typing
 
