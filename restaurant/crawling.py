@@ -171,15 +171,19 @@ def collect_chef_and_restaurant(info_list):
     
     """코드 수정"""
     name_chef, nick_name, name_restaurant ,loca_res, link_now, rating, rating_cnt,style_restaurant, desc_restaurant, etc_restaurant = info_list
-
+    name_restaurant_en = link_now.split("/")[-1].split("?")[0]
 
     try:
         chef, _ = Chef.objects.get_or_create(
             chef_name=name_chef,
             defaults={"image_url": "./default_image.jpeg"}
         )
-        restaurant, _ = Restaurant.objects.get_or_create(
+        restaurant_name, _ = Restaurant.objects.get_or_create(
             restaurant_name=name_restaurant,
+            chef=chef
+        )
+        restaurant_name_en, _ = Restaurant.objects.get_or_create(
+            restaurant_name_en=name_restaurant_en,
             chef=chef
         )
         address, _ = Restaurant.objects.get_or_create(
