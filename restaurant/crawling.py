@@ -53,11 +53,13 @@ def get_res_info(target_text) :
     except :
         nick_name = ""
     
-    name_restaurant = target_text
-    
     #현재 식당링크 :
     link_now = driver.current_url
-
+    
+    # 식당명 (한글, 영어)
+    name_restaurant = target_text
+    name_restaurant_en = link_now.split("/")[-1].split("?")[0]
+    
     #평점 정보
     try : 
         rating = float(getElement('dl6idsb').text)
@@ -89,7 +91,8 @@ def get_res_info(target_text) :
     getElement('_1ltqxco1g').click()
     loca_res = getElement('zn9ch54').text.split("\n")[0]
     
-    tmp = [name_chef, nick_name , name_restaurant
+    tmp = [name_chef, nick_name ,
+           name_restaurant, name_restaurant_en
            ,loca_res, link_now
            ,rating, rating_cnt
            , style_restaurant, desc_restaurant
@@ -170,8 +173,7 @@ def collect_chef_and_restaurant(info_list):
     """쉐프와 레스토랑 정보를 저장하고 레스토랑 객체를 반환"""
     
     """코드 수정"""
-    name_chef, nick_name, name_restaurant ,loca_res, link_now, rating, rating_cnt,style_restaurant, desc_restaurant, etc_restaurant = info_list
-    name_restaurant_en = link_now.split("/")[-1].split("?")[0]
+    name_chef, nick_name, name_restaurant, name_restaurant_en ,loca_res, link_now, rating, rating_cnt,style_restaurant, desc_restaurant, etc_restaurant = info_list
 
     try:
         chef, _ = Chef.objects.get_or_create(
