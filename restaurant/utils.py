@@ -2,6 +2,9 @@
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
+# 횟수를 기반으로 딕셔너리 생성
+from collections import Counter
+
 # 문장에서 명사를 추출하는 형태소 분석 라이브러리
 import jpype
 from konlpy.tag import Hannanum
@@ -17,14 +20,15 @@ def make_wordcloud(reviews_text, font_path):
       hannanum = Hannanum()
       nouns = hannanum.nouns(reviews_text)
       words = [noun for noun in nouns if len(noun) > 1]
-      
+      counter = Counter(words)
+
       # WordCloud 생성
       wordcloud = WordCloud(
           font_path= font_path,
           background_color='white',
           width=500,
           height=500
-      ).generate(words)  # 텍스트(빈도 1 초과인 명사)로부터 단어 클라우드 생성
+      ).generate(counter)  # 텍스트(명사)로부터 단어 클라우드 생성
 
       # 이미지로 저장
       fig, ax = plt.subplots(figsize=(5, 5))
