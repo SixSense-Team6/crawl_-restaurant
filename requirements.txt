@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 
+=======
+wordcloud
+matplotlib
+django
+selenium
+konlpy
+webdriver-manager
+bs4
+>>>>>>> 5f7c03c (ini)

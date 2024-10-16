@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>흑백요리사 리뷰 워드클라우드</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>🧑‍🍳흑백요리사 리뷰 워드클라우드</h1>
+    </header>
+    <main>
+        <div class="chef-grid">
+            {% for chef in chefs %}
+            <div class="chef-card" >
+                <img src="{{ chef.image_url }}" alt="{{ chef.chef_name }}" style='width:300px; height:300px;' onclick="goToChefDetail('{{ chef.id }}')" >
+                <div class="chef-card-content">
+                    <h2>{{ chef.chef_name }} </h2>
+                    <p>리뷰 워드클라우드 보기</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 흑백요리사 리뷰 워드클라우드</p>
+    </footer>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>
