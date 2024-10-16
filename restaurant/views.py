@@ -16,7 +16,7 @@ from konlpy.tag import Hannanum
 import io, os
 import base64
 
-from .utils import make_wordcloud
+from .utils import make_wordcloud, avg_price_plot, menu_price_plot
 
 
 
@@ -41,28 +41,19 @@ def detail(request, chef_id):
         for bad_review in restaurant.reviews.filter(review_category='bad'):
             bad_reviews_text += bad_review.review_text+' '
     
-    # 가격 평균 보여주기
-    mean_restaurant_price = 100000
-    this_restaurant_price = 50000
-
-    font_prop = font_manager.FontProperties(fname=font_path)
-
-    fig, ax = plt.subplots(figsize=(5,5))
-    bar_plot = ax.bar(['평균 가격', '이 식당의 가격'], [mean_restaurant_price, this_restaurant_price], color=['#4CAF50', '#F44336'])
-    ax.set_xticklabels(['평균 가격', '이 식당의 가격'], fontproperties=font_prop)
-    ax.set_title('가격 수', fontproperties=font_prop)
-    ax.set_ylabel('가격', fontproperties=font_prop)
-    
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png', bbox_inches='tight')
-    plt.close(fig)
-    buf.seek(0)
-    plot_base64 = base64.b64encode(buf.read()).decode('utf-8')
-    chef_json['bar_plot'] = plot_base64  # Base64 문자열 저장
-    
     chef_json['word_cloud_good'] = make_wordcloud(good_reviews_text, font_path)
     chef_json['word_cloud_bad'] = make_wordcloud(bad_reviews_text, font_path)
 
+    # 가격 평균 보여주기
+    mean_restaurant_price = 100000
+    this_restaurant_price = 50000
+    chef_json['bar_plot'] = avg_price_plot(mean_restaurant_price, this_restaurant_price, font_path)  # Base64 문자열 저장
+    
+    # 메뉴 가격
+    menu = ["딤섬 SET", "티엔 SET", "미미 SET", "여명 SET", "티엔미미철판볶음", "어향완자가지", "마라크림새우", "철판 유산슬", "배추찜", "산라탕"]
+    price = [40000, 50000, 70000, 100000, 47000, 39000, 36000, 41000, 38000, 38000]
+    menu_price_bar_plot = menu_price_plot(menu, price, font_path)
+    
     return render(request, 'restaurant/detail.html', {'chef_info': chef_json})
 
 
