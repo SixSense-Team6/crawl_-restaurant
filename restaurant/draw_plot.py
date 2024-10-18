@@ -104,4 +104,3 @@ def menu_price_plot(menu, price, font_path):
     plot_base64 = base64.b64encode(buf.read()).decode('utf-8')
 
     return plot_base64
-  
