@@ -227,34 +227,11 @@ h1 {
     gap: 10px;
 }
 
-/* .bar-plot-menu {
-    grid-column: 2 / 3; 
-    grid-row: 1 / 2; 
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 6px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-} */
-
 .bar-plot-menu img {
     width: 100%;
     max-width: 750px;
     height: auto;
 }
-
-
-/* .bar-plot-price {
-    grid-column: 3 / 4; 
-    grid-row: 1 / 2; 
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 6px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
-} */
 
 .bar-plot-price img {
     width: 100%;
