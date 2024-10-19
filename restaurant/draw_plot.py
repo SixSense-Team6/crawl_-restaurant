@@ -50,6 +50,13 @@ def make_wordcloud(reviews_list: List[str], font_path: str, num_each_fold: int,
                 reviews_text += s + ' ' 
             
         nouns = hannanum.nouns(reviews_text)
+        
+        if not good_words:
+            for noun in nouns:
+                good_words.append(noun)
+        else:
+            nouns = [noun for noun in nouns if noun not in good_words]
+        
         filtered_nouns = [noun for noun in nouns if len(noun) > 1]
         if stopwords_path:
             filtered_nouns = [nouns for nouns in filtered_nouns if nouns not in stopwords_list]
